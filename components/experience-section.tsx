@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import { Briefcase, ChevronDown, ExternalLink, Linkedin, AlertTriangle, CheckCircle, Globe, Users, TrendingUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -112,7 +111,7 @@ const experiences: ExperienceData[] = [
   }
 ]
 
-function ExperienceCard({ exp, index }: { exp: ExperienceData; index: number }) {
+function ExperienceCard({ exp }: { exp: ExperienceData }) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
@@ -124,16 +123,13 @@ function ExperienceCard({ exp, index }: { exp: ExperienceData; index: number }) 
           : "bg-card border-muted-foreground/30"
       }`} />
 
-      <motion.div 
-        layout
-        className={`rounded-xl border overflow-hidden ${
+      <div 
+        className={`rounded-xl border overflow-hidden transition-all duration-200 ${
           exp.highlight 
             ? "bg-card border-primary/20 shadow-sm" 
             : "bg-card border-border"
-        } ${exp.expandable ? "cursor-pointer" : ""}`}
+        } ${exp.expandable ? "cursor-pointer hover:scale-[1.01]" : ""}`}
         onClick={() => exp.expandable && setIsExpanded(!isExpanded)}
-        whileHover={exp.expandable ? { scale: 1.01 } : {}}
-        transition={{ duration: 0.2 }}
       >
         <div className="p-5 md:p-6">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
@@ -177,37 +173,29 @@ function ExperienceCard({ exp, index }: { exp: ExperienceData; index: number }) 
 
           {exp.expandable && (
             <div className="flex items-center justify-center pt-2 border-t border-border/50">
-              <motion.div
-                animate={{ rotate: isExpanded ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="flex items-center gap-2 text-sm text-primary"
+              <div
+                className={`flex items-center gap-2 text-sm text-primary transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
               >
-                <span>{isExpanded ? "Hide Details" : "View Details"}</span>
+                <span className={isExpanded ? "hidden" : "block"}>View Details</span>
+                <span className={isExpanded ? "block" : "hidden"}>Hide Details</span>
                 <ChevronDown className="w-4 h-4" />
-              </motion.div>
+              </div>
             </div>
           )}
         </div>
 
         {/* Expanded Content */}
-        <AnimatePresence>
-          {isExpanded && exp.expandedContent && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
+        <div 
+          className={`grid transition-all duration-400 ease-in-out ${
+            isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            {exp.expandedContent && (
               <div className="px-5 md:px-6 pb-6 pt-2 border-t border-border/50 space-y-6">
                 {/* Liaison Role */}
                 {exp.expandedContent.liaison && (
-                  <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.1 }}
-                    className="bg-muted/50 rounded-lg p-4"
-                  >
+                  <div className="bg-muted/50 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <Users className="w-5 h-5 text-primary" />
                       <h4 className="font-semibold text-foreground">{exp.expandedContent.liaison.title}</h4>
@@ -220,17 +208,12 @@ function ExperienceCard({ exp, index }: { exp: ExperienceData; index: number }) 
                         </span>
                       ))}
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* Global Vision */}
                 {exp.expandedContent.globalVision && (
-                  <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.15 }}
-                    className="bg-muted/50 rounded-lg p-4"
-                  >
+                  <div className="bg-muted/50 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <Globe className="w-5 h-5 text-primary" />
                       <h4 className="font-semibold text-foreground">{exp.expandedContent.globalVision.title}</h4>
@@ -243,17 +226,12 @@ function ExperienceCard({ exp, index }: { exp: ExperienceData; index: number }) 
                         </span>
                       ))}
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* Case Study */}
                 {exp.expandedContent.caseStudy && (
-                  <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="bg-muted/50 rounded-lg p-4"
-                  >
+                  <div className="bg-muted/50 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-4">
                       <TrendingUp className="w-5 h-5 text-primary" />
                       <h4 className="font-semibold text-foreground">{exp.expandedContent.caseStudy.title}</h4>
@@ -278,17 +256,12 @@ function ExperienceCard({ exp, index }: { exp: ExperienceData; index: number }) 
                         <p className="text-sm text-muted-foreground">{exp.expandedContent.caseStudy.result}</p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* TACOP Innovation */}
                 {exp.expandedContent.innovation && (
-                  <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.25 }}
-                    className="bg-muted/50 rounded-lg p-4"
-                  >
+                  <div className="bg-muted/50 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <AlertTriangle className="w-5 h-5 text-amber-500" />
                       <h4 className="font-semibold text-foreground">{exp.expandedContent.innovation.title}</h4>
@@ -302,21 +275,10 @@ function ExperienceCard({ exp, index }: { exp: ExperienceData; index: number }) 
                     <div className="relative bg-card border border-border rounded-lg p-4 overflow-hidden">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-xs font-medium text-muted-foreground">TACOP Dashboard Simulation</span>
-                        <motion.div
-                          animate={{ 
-                            scale: [1, 1.2, 1],
-                            opacity: [1, 0.8, 1]
-                          }}
-                          transition={{ 
-                            duration: 1.5, 
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                          className="flex items-center gap-1.5 px-2 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full"
-                        >
+                        <div className="flex items-center gap-1.5 px-2 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full">
                           <span className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
                           <span className="text-xs font-medium text-amber-600">Alert Active</span>
-                        </motion.div>
+                        </div>
                       </div>
                       <div className="grid grid-cols-2 gap-2">
                         {exp.expandedContent.innovation.features.map((feature, i) => (
@@ -327,16 +289,11 @@ function ExperienceCard({ exp, index }: { exp: ExperienceData; index: number }) 
                         ))}
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* Links */}
-                <motion.div 
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="flex flex-wrap gap-3 pt-2"
-                >
+                <div className="flex flex-wrap gap-3 pt-2">
                   {exp.expandedContent.companyLink && (
                     <Button
                       variant="outline"
@@ -365,12 +322,12 @@ function ExperienceCard({ exp, index }: { exp: ExperienceData; index: number }) 
                       {exp.expandedContent.supervisor.name}
                     </Button>
                   )}
-                </motion.div>
+                </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
@@ -393,7 +350,7 @@ export function ExperienceSection() {
 
           <div className="space-y-8">
             {experiences.map((exp, index) => (
-              <ExperienceCard key={index} exp={exp} index={index} />
+              <ExperienceCard key={index} exp={exp} />
             ))}
           </div>
         </div>
