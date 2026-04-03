@@ -124,7 +124,7 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
       }`} />
 
       <div 
-        className={`rounded-xl border overflow-hidden transition-all duration-200 ${
+        className={`rounded-xl border overflow-hidden transition-all duration-300 ${
           exp.highlight 
             ? "bg-card border-primary/20 shadow-sm" 
             : "bg-card border-border"
@@ -173,12 +173,9 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
 
           {exp.expandable && (
             <div className="flex items-center justify-center pt-2 border-t border-border/50">
-              <div
-                className={`flex items-center gap-2 text-sm text-primary transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
-              >
-                <span className={isExpanded ? "hidden" : "block"}>View Details</span>
-                <span className={isExpanded ? "block" : "hidden"}>Hide Details</span>
-                <ChevronDown className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-sm text-primary">
+                <span>{isExpanded ? "Hide Details" : "View Details"}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} />
               </div>
             </div>
           )}
