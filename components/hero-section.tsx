@@ -52,15 +52,15 @@ export function HeroSection() {
             <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-6 text-sm font-medium text-muted-foreground">
               <a href="mailto:ladrondeguevarafrancisco2000@gmail.com" className="inline-flex items-center gap-2 hover:text-primary transition-colors">
                 <Mail className="w-4 h-4" />
-                <span>ladrondeguevarafrancisco2000@gmail.com</span> [cite: 67]
+                <span>ladrondeguevarafrancisco2000@gmail.com</span>
               </a>
               <a href="tel:+393520212601" className="inline-flex items-center gap-2 hover:text-primary transition-colors">
                 <Phone className="w-4 h-4" />
-                <span>+39 352 021 2601</span> [cite: 67]
+                <span>+39 352 021 2601</span>
               </a>
               <div className="inline-flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
-                <span>Turin, Italy</span> [cite: 67]
+                <span>Turin, Italy</span>
               </div>
               <a 
                 href="https://www.linkedin.com/in/franciscoladrondeguevara" 
@@ -69,7 +69,7 @@ export function HeroSection() {
                 className="inline-flex items-center gap-2 hover:text-primary transition-colors"
               >
                 <Linkedin className="w-4 h-4" />
-                <span>LinkedIn Profile</span> [cite: 67]
+                <span>LinkedIn Profile</span>
               </a>
             </div>
           </div>
