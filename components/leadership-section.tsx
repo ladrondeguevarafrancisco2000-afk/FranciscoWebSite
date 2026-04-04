@@ -218,11 +218,11 @@ export function LeadershipSection() {
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div className="p-4 border border-border rounded-xl">
                             <h5 className="text-xs font-bold uppercase text-primary mb-2 flex items-center gap-2"><Calculator className="w-3 h-3"/> Cost Management</h5>
-                            <p className="text-xs text-muted-foreground">Detailed analysis of direct/indirect costs, variable/fixed costs, and Takt Time-based LEAN manufacturing integration[cite: 2006, 2017].</p>
+                            <p className="text-xs text-muted-foreground">Detailed analysis of direct/indirect costs, variable/fixed costs, and Takt Time-based LEAN manufacturing integration.</p>
                           </div>
                           <div className="p-4 border border-border rounded-xl">
                             <h5 className="text-xs font-bold uppercase text-primary mb-2 flex items-center gap-2"><TrendingUp className="w-3 h-3"/> Financial KPIs</h5>
-                            <p className="text-xs text-muted-foreground">Evaluation of ROI, Equity Return, and Economic Value Creation (EVA) for industrial environments[cite: 2046, 2049].</p>
+                            <p className="text-xs text-muted-foreground">Evaluation of ROI, Equity Return, and Economic Value Creation (EVA) for industrial environments.</p>
                           </div>
                         </div>
                         <div className="flex justify-center pt-2">
