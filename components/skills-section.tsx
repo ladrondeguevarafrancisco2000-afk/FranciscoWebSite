@@ -1,5 +1,3 @@
-"use client"
-
 import { Wrench, FileSpreadsheet, Presentation, FileText, Code, Compass, FolderKanban } from "lucide-react"
 
 const skills = [

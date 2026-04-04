@@ -1,5 +1,3 @@
-"use client"
-
 import { Award, Users, BookOpen, Plane } from "lucide-react"
 
 const leadership = [

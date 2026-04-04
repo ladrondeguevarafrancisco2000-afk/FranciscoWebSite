@@ -194,7 +194,13 @@ function ItemIcon({ icon }: { icon: "clipboard" | "cog" | "car" | "spreadsheet" 
 }
 
 function ExperienceCard({ exp }: { exp: ExperienceData }) {
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
+
+  const handleToggle = () => {
+    if (exp.expandable) {
+      setIsExpanded(prev => !prev)
+    }
+  }
 
   return (
     <div className="relative pl-12 md:pl-16">
@@ -211,7 +217,7 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
             ? "bg-card border-primary/20 shadow-sm" 
             : "bg-card border-border"
         } ${exp.expandable ? "cursor-pointer hover:scale-[1.01]" : ""}`}
-        onClick={() => exp.expandable && setIsExpanded(!isExpanded)}
+        onClick={handleToggle}
       >
         <div className="p-5 md:p-6">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
