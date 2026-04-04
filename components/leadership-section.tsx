@@ -2,18 +2,6 @@ import { Award, Users, BookOpen, Plane } from "lucide-react"
 
 const leadership = [
   {
-    title: "Coordinator of Sponsorships",
-    organization: "CAEII 2025",
-    subtitle: "National Congress of Industrial Engineering Students",
-    period: "Current",
-    description: [
-      "Leading a team of students to build partnerships for a 1,200-participant national congress.",
-      "Managing negotiations and coordinating communication strategies to strengthen institutional relationships."
-    ],
-    skills: ["Leadership", "Negotiation", "Team Coordination", "Strategic Management"],
-    icon: Award
-  },
-  {
     title: "President",
     organization: "El Galponcito Community Center",
     subtitle: "Volunteer Organization",
