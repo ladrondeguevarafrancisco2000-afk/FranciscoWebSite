@@ -1,8 +1,19 @@
 "use client"
 
 import { useState } from "react"
-import { Briefcase, ChevronDown, ExternalLink, Linkedin, AlertTriangle, CheckCircle, Globe, Users, TrendingUp } from "lucide-react"
+import { Briefcase, ChevronDown, ExternalLink, Linkedin, AlertTriangle, CheckCircle, Globe, Users, TrendingUp, Cog, Car, FileSpreadsheet, Wrench, ClipboardList } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+interface RenaultPhase {
+  title: string
+  duration: string
+  icon: "cog" | "wrench"
+  items: {
+    title: string
+    icon: "clipboard" | "cog" | "car" | "spreadsheet"
+    description: string
+  }[]
+}
 
 interface ExperienceData {
   company: string
@@ -14,6 +25,14 @@ interface ExperienceData {
   highlight: boolean
   expandable?: boolean
   expandedContent?: {
+    context?: string
+    phases?: RenaultPhase[]
+    supervisor?: {
+      name: string
+      title?: string
+      linkedIn: string
+    }
+    companyLink?: string
     liaison?: {
       title: string
       areas: string[]
@@ -34,33 +53,15 @@ interface ExperienceData {
       description: string
       features: string[]
     }
-    supervisor?: {
-      name: string
-      linkedIn: string
-    }
-    companyLink?: string
   }
 }
 
 const experiences: ExperienceData[] = [
   {
-    company: "Groupe Renault",
-    role: "Performance Engineering Intern",
-    location: "Argentina",
-    period: "Mar 2024 - Aug 2025",
-    description: [
-      "Analyzed performance test data, supporting continuous improvement in automotive systems.",
-      "Collaborated with cross-functional teams to propose competitive solutions."
-    ],
-    skills: ["Data Analysis", "Process Improvement", "Excel", "Cross-functional Collaboration"],
-    highlight: true,
-    expandable: false
-  },
-  {
     company: "Grupo Arcor",
     role: "International Logistics Intern",
     location: "Argentina",
-    period: "Sep 2022 - Mar 2024",
+    period: "Mar 2024 – Aug 2025",
     description: [
       "Optimized the global supply chain and reduced port costs in Mexico.",
       "Developed Excel dashboards to track delivery KPIs and optimize logistics performance."
@@ -91,16 +92,79 @@ const experiences: ExperienceData[] = [
       },
       supervisor: {
         name: "Juan Cruz Macagno",
-        linkedIn: "https://www.linkedin.com/in/juan-cruz-macagno/"
+        linkedIn: "https://www.linkedin.com/in/juan-cruz-macagno-0b381853/"
       },
       companyLink: "https://www.arcor.com"
+    }
+  },
+  {
+    company: "Groupe Renault",
+    role: "Performance Engineering Intern",
+    location: "Argentina (RTA - Renault Technologie America)",
+    period: "Sep 2022 – Mar 2024",
+    description: [
+      "Part of the Performance Engineering area within RTA, providing competitive intelligence and supporting vehicle testing operations.",
+      "Designed process optimization tools and coordinated cross-functional technical analysis."
+    ],
+    skills: ["Competitive Intelligence", "Process Optimization", "SAP", "Technical Benchmarking", "Workshop Coordination", "Excel"],
+    highlight: true,
+    expandable: true,
+    expandedContent: {
+      context: "Renault Technologie America (RTA) - Performance Engineering Area",
+      phases: [
+        {
+          title: "Phase 1: Competitive Analysis Center (CAC)",
+          duration: "12 months",
+          icon: "cog",
+          items: [
+            {
+              title: "Liaison Role",
+              icon: "clipboard",
+              description: "Acted as a liaison between different METIERS (Specialties: Comfort, Acoustics, Seats, etc.) to provide competitive intelligence to engineering teams."
+            },
+            {
+              title: "Process Optimization (Milestone)",
+              icon: "cog",
+              description: "Facing inefficient information flows via email, I designed a Standardized Query Template in Excel. This eliminated ambiguities, drastically reduced email traffic, and accelerated technical report response times."
+            },
+            {
+              title: "Technical Benchmarking",
+              icon: "spreadsheet",
+              description: "Managed the A2MAC1 platform for global technical data analysis and competitive benchmarking."
+            },
+            {
+              title: "Tear-down Supervision",
+              icon: "car",
+              description: "Coordinated piece-by-piece teardowns of competitor vehicles with Colegio Técnico Renault. Supervised technical documentation (weight, photos, suppliers) and organized Exploitation Workshops for engineers from each Metier to analyze physical components."
+            }
+          ]
+        },
+        {
+          title: "Phase 2: Testing Workshop",
+          duration: "6 months",
+          icon: "wrench",
+          items: [
+            {
+              title: "Operational Management & SAP",
+              icon: "clipboard",
+              description: "Transitioned to a logistical-technical role. Responsible for purchasing critical supplies and managing racetrack rentals for performance testing using SAP."
+            }
+          ]
+        }
+      ],
+      supervisor: {
+        name: "Vicente Sosa",
+        title: "Performance Engineer",
+        linkedIn: "https://www.linkedin.com/in/vicente-sosa/"
+      },
+      companyLink: "https://www.renault.com.ar"
     }
   },
   {
     company: "Olmer Giusti SRL",
     role: "Sales Executive",
     location: "Argentina",
-    period: "Feb 2022 - Sep 2022",
+    period: "Feb 2022 – Sep 2022",
     description: [
       "Managed outbound calls and email campaigns to promote company catalogs and generate B2B leads.",
       "Ensured accurate communication of product information and follow-up on sales opportunities."
@@ -110,6 +174,24 @@ const experiences: ExperienceData[] = [
     expandable: false
   }
 ]
+
+function PhaseIcon({ icon }: { icon: "cog" | "wrench" }) {
+  if (icon === "cog") return <Cog className="w-5 h-5" />
+  return <Wrench className="w-5 h-5" />
+}
+
+function ItemIcon({ icon }: { icon: "clipboard" | "cog" | "car" | "spreadsheet" }) {
+  switch (icon) {
+    case "clipboard":
+      return <ClipboardList className="w-4 h-4 text-primary" />
+    case "cog":
+      return <Cog className="w-4 h-4 text-primary" />
+    case "car":
+      return <Car className="w-4 h-4 text-primary" />
+    case "spreadsheet":
+      return <FileSpreadsheet className="w-4 h-4 text-primary" />
+  }
+}
 
 function ExperienceCard({ exp }: { exp: ExperienceData }) {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -190,7 +272,48 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
           <div className="overflow-hidden">
             {exp.expandedContent && (
               <div className="px-5 md:px-6 pb-6 pt-2 border-t border-border/50 space-y-6">
-                {/* Liaison Role */}
+                
+                {/* Renault Phases Timeline */}
+                {exp.expandedContent.phases && (
+                  <div className="space-y-4">
+                    {exp.expandedContent.context && (
+                      <div className="flex items-center gap-2 px-3 py-2 bg-primary/5 border border-primary/10 rounded-lg">
+                        <Briefcase className="w-4 h-4 text-primary" />
+                        <span className="text-sm font-medium text-foreground">{exp.expandedContent.context}</span>
+                      </div>
+                    )}
+                    
+                    {exp.expandedContent.phases.map((phase, phaseIndex) => (
+                      <div key={phaseIndex} className="bg-muted/50 rounded-lg p-4">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                            <PhaseIcon icon={phase.icon} />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-foreground">{phase.title}</h4>
+                            <span className="text-xs text-muted-foreground">{phase.duration}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-3 ml-2">
+                          {phase.items.map((item, itemIndex) => (
+                            <div key={itemIndex} className="flex gap-3 p-3 bg-card border border-border/50 rounded-lg">
+                              <div className="shrink-0 mt-0.5">
+                                <ItemIcon icon={item.icon} />
+                              </div>
+                              <div>
+                                <p className="text-sm font-medium text-foreground mb-1">{item.title}</p>
+                                <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Liaison Role - Arcor */}
                 {exp.expandedContent.liaison && (
                   <div className="bg-muted/50 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-3">
@@ -208,7 +331,7 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
                   </div>
                 )}
 
-                {/* Global Vision */}
+                {/* Global Vision - Arcor */}
                 {exp.expandedContent.globalVision && (
                   <div className="bg-muted/50 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-3">
@@ -226,7 +349,7 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
                   </div>
                 )}
 
-                {/* Case Study */}
+                {/* Case Study - Arcor */}
                 {exp.expandedContent.caseStudy && (
                   <div className="bg-muted/50 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-4">
@@ -256,7 +379,7 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
                   </div>
                 )}
 
-                {/* TACOP Innovation */}
+                {/* TACOP Innovation - Arcor */}
                 {exp.expandedContent.innovation && (
                   <div className="bg-muted/50 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-3">
@@ -317,6 +440,9 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
                     >
                       <Linkedin className="w-4 h-4" />
                       {exp.expandedContent.supervisor.name}
+                      {exp.expandedContent.supervisor.title && (
+                        <span className="text-xs opacity-80">({exp.expandedContent.supervisor.title})</span>
+                      )}
                     </Button>
                   )}
                 </div>
