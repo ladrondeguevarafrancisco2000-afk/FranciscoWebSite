@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 import { 
-  Award, Users, BookOpen, Plane, ChevronDown, 
-  Target, TrendingUp, Heart, Sparkles, Mic, 
-  Building2, Handshake, Instagram, Linkedin, Globe, FileText 
+  Award, Users, BookOpen, ChevronDown, 
+  Target, TrendingUp, Heart, Sparkles, 
+  Building2, Globe, FileText, Instagram,
+  MapPin, AlertTriangle, GraduationCap, Calculator
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -63,7 +64,7 @@ const caeiiChapters = [
 
 export function LeadershipSection() {
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
-  const [activeCaeiiChapter, setActiveCaeiiChapter] = useState<string | null>(null)
+  const [activeAccordion, setActiveAccordion] = useState<string | null>(null)
 
   const roles = [
     {
@@ -73,7 +74,7 @@ export function LeadershipSection() {
       period: "Sep 2024 - Oct 2025",
       icon: Award,
       summary: "Led the partnership strategy for Argentina's largest Industrial Engineering student congress.",
-      isExpandable: true
+      quote: "Entered as a student with zero experience, left as a professional negotiating with industry giants."
     },
     {
       id: "galponcito",
@@ -81,11 +82,8 @@ export function LeadershipSection() {
       organization: "El Galponcito Community Center",
       period: "Dec 2022 - Aug 2025",
       icon: Users,
-      summary: "Directed a volunteer group providing educational and social support to families in need.",
-      description: [
-        "Organized community initiatives and fundraising events.",
-        "Managed weekly educational support programs."
-      ]
+      summary: "Strategic and social management of a volunteer-led center in a vulnerable urban area.",
+      quote: "Transforming reality through education: serving as a bridge between the university and the community."
     },
     {
       id: "assistant",
@@ -93,11 +91,8 @@ export function LeadershipSection() {
       organization: "National University of Córdoba",
       period: "Feb 2025 - Jul 2025",
       icon: BookOpen,
-      summary: "Selected by official academic resolution to support course planning and student exercises.",
-      description: [
-        "Guided students through complex industrial cost analysis.",
-        "Assisted in technical material development."
-      ]
+      summary: "Academic support in the Industrial Engineering department, focusing on financial efficiency and decision-making.",
+      quote: "Empowering the next generation of engineers to master the financial pillars of industrial management."
     }
   ]
 
@@ -133,11 +128,14 @@ export function LeadershipSection() {
                   </div>
                 </div>
                 <Button 
-                  onClick={() => setExpandedCard(expandedCard === role.id ? null : role.id)}
+                  onClick={() => {
+                    setExpandedCard(expandedCard === role.id ? null : role.id)
+                    setActiveAccordion(null)
+                  }}
                   variant="outline" 
                   className="gap-2 shrink-0"
                 >
-                  {expandedCard === role.id ? "Show less" : "View Details"}
+                  {expandedCard === role.id ? "Show less" : "View Deep Dive"}
                   <ChevronDown className={`w-4 h-4 transition-transform ${expandedCard === role.id ? "rotate-180" : ""}`} />
                 </Button>
               </div>
@@ -145,66 +143,96 @@ export function LeadershipSection() {
               {/* --- Expanded Content --- */}
               {expandedCard === role.id && (
                 <div className="px-6 pb-8 md:px-10 border-t border-border animate-in fade-in slide-in-from-top-4 duration-500">
-                  {role.id === "caeii" ? (
-                    /* Detailed CAEII Information with Chapters */
-                    <div className="pt-8 space-y-6">
-                      <p className="italic text-muted-foreground mb-6">
-                        "Entered as a student with zero experience, left as a professional negotiating with industry giants." 
-                      </p>
+                  <div className="pt-8 space-y-6">
+                    <p className="italic text-muted-foreground mb-6">"{role.quote}"</p>
+
+                    {/* --- CASE 1: CAEII --- */}
+                    {role.id === "caeii" && (
                       <div className="space-y-4">
                         {caeiiChapters.map((chapter) => (
-                          <div key={chapter.id} className={`rounded-xl border ${activeCaeiiChapter === chapter.id ? chapter.borderColor : "border-border"}`}>
-                            <button 
-                              onClick={() => setActiveCaeiiChapter(activeCaeiiChapter === chapter.id ? null : chapter.id)}
-                              className="w-full p-4 flex items-center justify-between"
-                            >
-                              <div className="flex items-center gap-3">
-                                <div className={`p-2 rounded-lg ${chapter.bgColor}`}><chapter.icon className={`w-4 h-4 ${chapter.color}`} /></div>
-                                <span className="font-bold">{chapter.title}</span>
-                              </div>
-                              <ChevronDown className={`w-4 h-4 transition-transform ${activeCaeiiChapter === chapter.id ? "rotate-180" : ""}`} />
-                            </button>
-                            {activeCaeiiChapter === chapter.id && (
-                              <div className="px-4 pb-4">
-                                {chapter.content.details && (
-                                  <ul className="space-y-2">
-                                    {chapter.content.details.map((d, i) => <li key={i} className="text-sm text-muted-foreground flex gap-2"><span>•</span>{d}</li>)}
-                                  </ul>
-                                )}
-                                {chapter.content.kpis && (
-                                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-2">
-                                    {chapter.content.kpis.map((k, i) => (
-                                      <div key={i} className="p-3 bg-muted/50 rounded-lg">
-                                        <p className="text-xs font-bold uppercase text-muted-foreground">{k.label}</p>
-                                        <p className="text-lg font-bold text-primary">{k.value}</p>
-                                        <p className="text-xs text-muted-foreground">{k.detail}</p>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
-                            )}
+                          <AccordionItem 
+                            key={chapter.id} 
+                            chapter={chapter} 
+                            isOpen={activeAccordion === chapter.id} 
+                            onToggle={() => setActiveAccordion(activeAccordion === chapter.id ? null : chapter.id)} 
+                          />
+                        ))}
+                        <div className="flex flex-wrap gap-3 pt-4">
+                          <Button variant="outline" size="sm" className="gap-2" onClick={() => window.open("https://caeii.com.ar", "_blank")}><Globe className="w-4 h-4" /> Website</Button>
+                          <Button variant="default" size="sm" className="gap-2" onClick={() => window.open("/documents/informe_final_caeii_2025.pdf", "_blank")}><FileText className="w-4 h-4" /> Download Report (PDF)</Button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* --- CASE 2: EL GALPONCITO --- */}
+                    {role.id === "galponcito" && (
+                      <div className="space-y-6">
+                        <div className="grid md:grid-cols-2 gap-4">
+                          <div className="p-4 bg-muted/50 rounded-xl border border-border">
+                            <div className="flex items-center gap-2 mb-3 text-amber-600">
+                              <MapPin className="w-4 h-4" />
+                              <span className="text-xs font-bold uppercase">The Context</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              Barrio Chino (Villa Revol Anexo): A community of 500 inhabitants with zero local public services, facing significant social and health challenges.
+                            </p>
                           </div>
-                        ))}
+                          <div className="p-4 bg-muted/50 rounded-xl border border-border">
+                            <div className="flex items-center gap-2 mb-3 text-rose-600">
+                              <AlertTriangle className="w-4 h-4" />
+                              <span className="text-xs font-bold uppercase">The Mission</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              Closing the educational gap where over 50% of youths lacked age-appropriate capabilities, a situation exacerbated by the pandemic.
+                            </p>
+                          </div>
+                        </div>
+                        <div className="p-5 bg-primary/5 rounded-xl border border-primary/20">
+                          <h4 className="font-bold mb-3 flex items-center gap-2"><TrendingUp className="w-4 h-4 text-primary" /> Multi-Dimensional Impact</h4>
+                          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
+                            <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Education:</b> Tutoring in Mathematics and Science.</li>
+                            <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Social Nexus:</b> Identifying property title and sanitary issues.</li>
+                            <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Community:</b> Managing fundraising and recreational workshops.</li>
+                            <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Advocacy:</b> Addressing public area hygiene and safety.</li>
+                          </ul>
+                        </div>
+                        <div className="flex justify-center pt-2">
+                          <Button variant="outline" size="sm" className="gap-2" onClick={() => window.open("https://www.instagram.com/elgalponcito.bc/?hl=es", "_blank")}>
+                            <Instagram className="w-4 h-4" /> Visit Instagram
+                          </Button>
+                        </div>
                       </div>
-                      <div className="flex flex-wrap gap-3 pt-4">
-                        <Button variant="outline" size="sm" className="gap-2" onClick={() => window.open("https://caeii.com.ar", "_blank")}><Globe className="w-4 h-4" /> Website</Button>
-                        <Button variant="default" size="sm" className="gap-2" onClick={() => window.open("/documents/informe_final_caeii_2025.pdf", "_blank")}><FileText className="w-4 h-4" /> Download PDF Report</Button>
+                    )}
+
+                    {/* --- CASE 3: TEACHING ASSISTANT --- */}
+                    {role.id === "assistant" && (
+                      <div className="space-y-6">
+                        <div className="p-5 bg-muted/30 rounded-xl border border-border">
+                          <h4 className="font-bold mb-3 flex items-center gap-2"><GraduationCap className="w-4 h-4 text-primary" /> Key Responsibilities</h4>
+                          <ul className="space-y-2">
+                            <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Evaluation:</b> Grading Practical Works (TPs) to ensure students master core cost methodologies.</li>
+                            <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Guidance:</b> Providing classroom support and resolving complex student inquiries during practical sessions.</li>
+                            <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Strategic Vision:</b> Helping students apply a financial perspective to engineering decision-making[cite: 1984].</li>
+                          </ul>
+                        </div>
+                        <div className="grid sm:grid-cols-2 gap-4">
+                          <div className="p-4 border border-border rounded-xl">
+                            <h5 className="text-xs font-bold uppercase text-primary mb-2 flex items-center gap-2"><Calculator className="w-3 h-3"/> Cost Management</h5>
+                            <p className="text-xs text-muted-foreground">Detailed analysis of direct/indirect costs, variable/fixed costs, and Takt Time-based LEAN manufacturing integration[cite: 2006, 2017].</p>
+                          </div>
+                          <div className="p-4 border border-border rounded-xl">
+                            <h5 className="text-xs font-bold uppercase text-primary mb-2 flex items-center gap-2"><TrendingUp className="w-3 h-3"/> Financial KPIs</h5>
+                            <p className="text-xs text-muted-foreground">Evaluation of ROI, Equity Return, and Economic Value Creation (EVA) for industrial environments[cite: 2046, 2049].</p>
+                          </div>
+                        </div>
+                        <div className="flex justify-center pt-2">
+                          <Button variant="default" size="sm" className="gap-2" onClick={() => window.open("/documents/industrial_costs_syllabus.pdf", "_blank")}>
+                            <FileText className="w-4 h-4" /> Download Full Syllabus (PDF)
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    /* Standard Description for other roles */
-                    <div className="pt-8">
-                      <ul className="space-y-3">
-                        {role.description?.map((desc, i) => (
-                          <li key={i} className="text-muted-foreground flex gap-3 text-sm leading-relaxed">
-                            <span className="text-primary mt-1.5">•</span>
-                            <span>{desc} [cite: 999, 1004]</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -212,5 +240,41 @@ export function LeadershipSection() {
         </div>
       </div>
     </section>
+  )
+}
+
+function AccordionItem({ chapter, isOpen, onToggle }: { chapter: any, isOpen: boolean, onToggle: () => void }) {
+  const Icon = chapter.icon
+  return (
+    <div className={`rounded-xl border ${isOpen ? chapter.borderColor : "border-border"}`}>
+      <button onClick={onToggle} className="w-full p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className={`p-2 rounded-lg ${chapter.bgColor}`}><Icon className={`w-4 h-4 ${chapter.color}`} /></div>
+          <span className="font-bold">{chapter.title}</span>
+        </div>
+        <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+      </button>
+      {isOpen && (
+        <div className="px-4 pb-4">
+          <p className="text-sm font-medium mb-3 text-foreground">{chapter.content.intro}</p>
+          {chapter.content.details && (
+            <ul className="space-y-2">
+              {chapter.content.details.map((d: string, i: number) => <li key={i} className="text-sm text-muted-foreground flex gap-2"><span>•</span>{d}</li>)}
+            </ul>
+          )}
+          {chapter.content.kpis && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-2">
+              {chapter.content.kpis.map((k: any, i: number) => (
+                <div key={i} className="p-3 bg-muted/50 rounded-lg">
+                  <p className="text-xs font-bold uppercase text-muted-foreground">{k.label}</p>
+                  <p className="text-lg font-bold text-primary">{k.value}</p>
+                  <p className="text-xs text-muted-foreground">{k.detail}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   )
 }
