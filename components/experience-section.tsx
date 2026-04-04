@@ -154,8 +154,7 @@ const experiences: ExperienceData[] = [
       ],
       supervisor: {
         name: "Vicente Sosa",
-        title: "Performance Engineer",
-        linkedIn: "https://www.linkedin.com/in/vicente-sosa/"
+        title: "Performance Engineer"
       },
       companyLink: "https://www.renault.com.ar"
     }
@@ -434,7 +433,7 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
                       Visit {exp.company}
                     </Button>
                   )}
-                  {exp.expandedContent.supervisor && (
+                  {exp.expandedContent.supervisor && exp.expandedContent.supervisor.linkedIn && (
                     <Button
                       variant="default"
                       size="sm"
@@ -450,6 +449,14 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
                         <span className="text-xs opacity-80">({exp.expandedContent.supervisor.title})</span>
                       )}
                     </Button>
+                  )}
+                  {exp.expandedContent.supervisor && !exp.expandedContent.supervisor.linkedIn && (
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-muted rounded-md text-sm">
+                      <span className="font-medium text-foreground">{exp.expandedContent.supervisor.name}</span>
+                      {exp.expandedContent.supervisor.title && (
+                        <span className="text-muted-foreground">({exp.expandedContent.supervisor.title})</span>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
