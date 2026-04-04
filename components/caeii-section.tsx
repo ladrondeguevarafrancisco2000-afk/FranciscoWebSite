@@ -1,7 +1,18 @@
 "use client"
 
 import { useState } from "react"
-import { Award, Users, Target, TrendingUp, ChevronDown, Handshake, Mic, Building2, Heart, Sparkles } from "lucide-react"
+import {
+  Award,
+  Users,
+  Target,
+  TrendingUp,
+  ChevronDown,
+  Handshake,
+  Mic,
+  Building2,
+  Heart,
+  Sparkles
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const storyChapters = [
