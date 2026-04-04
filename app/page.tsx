@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/hero-section"
 import { ExperienceSection } from "@/components/experience-section"
 import { EducationSection } from "@/components/education-section"
+import { CAEIISection } from "@/components/caeii-section"
 import { LeadershipSection } from "@/components/leadership-section"
 import { SkillsSection } from "@/components/skills-section"
 import { LanguagesSection } from "@/components/languages-section"
@@ -12,6 +13,7 @@ export default function Home() {
       <HeroSection />
       <ExperienceSection />
       <EducationSection />
+      <CAEIISection />
       <LeadershipSection />
       <SkillsSection />
       <LanguagesSection />
