@@ -154,7 +154,8 @@ const experiences: ExperienceData[] = [
       ],
       supervisor: {
         name: "Vicente Sosa",
-        title: "Performance Engineer"
+        title: "Performance Engineer",
+        linkedIn: "https://www.linkedin.com/in/sosavicente/"
       },
       companyLink: "https://www.renault.com.ar"
     }
@@ -418,44 +419,52 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
                 )}
 
                 {/* Links */}
-                <div className="flex flex-wrap gap-3 pt-2">
+                <div className="space-y-3 pt-2">
                   {exp.expandedContent.companyLink && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="gap-2"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        window.open(exp.expandedContent?.companyLink, "_blank")
-                      }}
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Visit {exp.company}
-                    </Button>
+                    <div className="flex flex-wrap gap-3">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-2"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          window.open(exp.expandedContent?.companyLink, "_blank")
+                        }}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Visit {exp.company}
+                      </Button>
+                    </div>
                   )}
-                  {exp.expandedContent.supervisor && exp.expandedContent.supervisor.linkedIn && (
-                    <Button
-                      variant="default"
-                      size="sm"
-                      className="gap-2"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        window.open(exp.expandedContent?.supervisor?.linkedIn, "_blank")
-                      }}
-                    >
-                      <Linkedin className="w-4 h-4" />
-                      {exp.expandedContent.supervisor.name}
-                      {exp.expandedContent.supervisor.title && (
-                        <span className="text-xs opacity-80">({exp.expandedContent.supervisor.title})</span>
-                      )}
-                    </Button>
-                  )}
-                  {exp.expandedContent.supervisor && !exp.expandedContent.supervisor.linkedIn && (
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-muted rounded-md text-sm">
-                      <span className="font-medium text-foreground">{exp.expandedContent.supervisor.name}</span>
-                      {exp.expandedContent.supervisor.title && (
-                        <span className="text-muted-foreground">({exp.expandedContent.supervisor.title})</span>
-                      )}
+                  {exp.expandedContent.supervisor && (
+                    <div className="space-y-2">
+                      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Reference Contact</p>
+                      <div className="flex flex-wrap gap-3">
+                        {exp.expandedContent.supervisor.linkedIn ? (
+                          <Button
+                            variant="default"
+                            size="sm"
+                            className="gap-2"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              window.open(exp.expandedContent?.supervisor?.linkedIn, "_blank")
+                            }}
+                          >
+                            <Linkedin className="w-4 h-4" />
+                            {exp.expandedContent.supervisor.name}
+                            {exp.expandedContent.supervisor.title && (
+                              <span className="text-xs opacity-80">({exp.expandedContent.supervisor.title})</span>
+                            )}
+                          </Button>
+                        ) : (
+                          <div className="flex items-center gap-2 px-3 py-1.5 bg-muted rounded-md text-sm">
+                            <span className="font-medium text-foreground">{exp.expandedContent.supervisor.name}</span>
+                            {exp.expandedContent.supervisor.title && (
+                              <span className="text-muted-foreground">({exp.expandedContent.supervisor.title})</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
