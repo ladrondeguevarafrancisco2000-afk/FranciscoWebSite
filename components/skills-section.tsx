@@ -1,4 +1,17 @@
-import { Wrench, FileSpreadsheet, Presentation, FileText, Code, Compass, FolderKanban } from "lucide-react"
+"use client"
+
+import { 
+  Wrench, 
+  FileSpreadsheet, 
+  Presentation, 
+  FileText, 
+  Code, 
+  Compass, 
+  FolderKanban, 
+  Database, 
+  Activity, 
+  Palette 
+} from "lucide-react"
 
 const skills = [
   {
@@ -30,6 +43,21 @@ const skills = [
     name: "AutoCAD",
     icon: Compass,
     category: "technical"
+  },
+  {
+    name: "MATLAB",
+    icon: Activity,
+    category: "technical"
+  },
+  {
+    name: "SQL",
+    icon: Database,
+    category: "technical"
+  },
+  {
+    name: "Canvas",
+    icon: Palette,
+    category: "technical"
   }
 ]
 
@@ -41,10 +69,11 @@ export function SkillsSection() {
           <div className="p-2 bg-primary/10 rounded-lg">
             <Wrench className="w-5 h-5 text-primary" />
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground">Technical Skills</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground font-sans uppercase tracking-tight">Technical Skills</h2>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+        {/* Technical Skills Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4">
           {skills.map((skill, index) => {
             const IconComponent = skill.icon
             return (
@@ -55,7 +84,7 @@ export function SkillsSection() {
                 <div className="p-3 bg-primary/10 rounded-lg mb-3 group-hover:bg-primary/20 transition-colors">
                   <IconComponent className="w-6 h-6 text-primary" />
                 </div>
-                <span className="text-sm font-medium text-foreground text-center">{skill.name}</span>
+                <span className="text-xs font-medium text-foreground text-center leading-tight">{skill.name}</span>
               </div>
             )
           })}
@@ -72,16 +101,21 @@ export function SkillsSection() {
               "Process Improvement",
               "Supply Chain Management",
               "International Logistics",
+              "Strategic Negotiation",
+              "Fundraising & Sponsorship",
+              "AI for Business Change",
+              "SOP Documentation",
               "Cross-functional Collaboration",
-              "Team Coordination",
+              "Team Leadership",
               "KPI Reporting",
               "Cost Analysis",
               "Strategic Planning",
+              "Social Responsibility",
               "Continuous Improvement"
             ].map((skill, index) => (
               <span 
                 key={index} 
-                className="px-3 py-1.5 text-sm font-medium bg-muted text-muted-foreground rounded-full"
+                className="px-3 py-1.5 text-xs font-medium bg-muted text-muted-foreground rounded-full border border-border/50 hover:border-primary/20 transition-colors"
               >
                 {skill}
               </span>
