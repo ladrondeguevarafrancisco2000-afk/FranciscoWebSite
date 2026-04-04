@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Award, Users, Target, TrendingUp, ChevronDown, Handshake, Mic, Building2, Heart, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -93,17 +93,10 @@ const storyChapters = [
 ]
 
 export function CAEIISection() {
-  const [mounted, setMounted] = useState(false)
   const [expandedChapter, setExpandedChapter] = useState<string | null>(null)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
   const toggleChapter = (chapterId: string) => {
-    if (mounted) {
-      setExpandedChapter(prev => prev === chapterId ? null : chapterId)
-    }
+    setExpandedChapter(prev => prev === chapterId ? null : chapterId)
   }
 
   return (

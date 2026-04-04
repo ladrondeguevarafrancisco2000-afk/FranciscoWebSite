@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { 
   GraduationCap, 
   ChevronDown, 
@@ -102,15 +102,10 @@ const subjectIcons = {
 }
 
 function EducationCard({ edu }: { edu: EducationData }) {
-  const [mounted, setMounted] = useState(false)
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
   const handleToggle = () => {
-    if (mounted && edu.expandable) {
+    if (edu.expandable) {
       setIsExpanded(prev => !prev)
     }
   }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Briefcase, ChevronDown, ExternalLink, Linkedin, AlertTriangle, CheckCircle, Globe, Users, TrendingUp, Cog, Car, FileSpreadsheet, Wrench, ClipboardList, Phone, BarChart3, Network, FileCheck, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -262,15 +262,10 @@ function ItemIcon({ icon }: { icon: "clipboard" | "cog" | "car" | "spreadsheet" 
 }
 
 function ExperienceCard({ exp }: { exp: ExperienceData }) {
-  const [mounted, setMounted] = useState(false)
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
   const handleToggle = () => {
-    if (mounted && exp.expandable) {
+    if (exp.expandable) {
       setIsExpanded(prev => !prev)
     }
   }
