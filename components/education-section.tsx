@@ -51,10 +51,10 @@ interface EducationData {
 const education: EducationData[] = [
   {
     institution: "Politecnico di Torino",
-    degree: "M.Sc. Engineering and Management",
+    degree: "M.Sc. Engineering and Management (Double Degree)",
     location: "Turin, Italy",
     period: "Sep 2025 - Present",
-    details: "Double Degree Program - English Course",
+    details: "English Course",
     highlight: true,
     expandable: true,
     expandedContent: {
@@ -78,7 +78,7 @@ const education: EducationData[] = [
   },
   {
     institution: "National University of Córdoba",
-    degree: "Industrial Engineering (Double Degree)",
+    degree: "Industrial Engineering",
     location: "Córdoba, Argentina",
     period: "Feb 2020 - Present",
     details: "GPA: 7.8/10",
@@ -86,7 +86,7 @@ const education: EducationData[] = [
     expandable: true,
     expandedContent: {
       focus: "Focus on industrial process optimization and cost management.",
-      academicRecordLink: "#" // Placeholder for PDF link
+      academicRecordLink: "/documents/historia_academica.pdf"
     }
   }
 ]
