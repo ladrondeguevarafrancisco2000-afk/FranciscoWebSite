@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Briefcase, ChevronDown, ExternalLink, Linkedin, AlertTriangle, CheckCircle, Globe, Users, TrendingUp, Cog, Car, FileSpreadsheet, Wrench, ClipboardList } from "lucide-react"
+import { Briefcase, ChevronDown, ExternalLink, Linkedin, AlertTriangle, CheckCircle, Globe, Users, TrendingUp, Cog, Car, FileSpreadsheet, Wrench, ClipboardList, Phone, BarChart3, Network, FileCheck, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface RenaultPhase {
@@ -53,6 +53,29 @@ interface ExperienceData {
       description: string
       features: string[]
     }
+    commercialStrategy?: {
+      title: string
+      items: {
+        title: string
+        icon: "phone" | "chart"
+        description: string
+      }[]
+    }
+    digitalTransformation?: {
+      title: string
+      items: {
+        title: string
+        icon: "network" | "phone"
+        description: string
+      }[]
+    }
+    managementHighlight?: {
+      title: string
+      projectName: string
+      description: string
+      impact: string
+    }
+    softSkills?: string[]
   }
 }
 
@@ -166,12 +189,57 @@ const experiences: ExperienceData[] = [
     location: "Argentina",
     period: "Feb 2022 – Sep 2022",
     description: [
-      "Managed outbound calls and email campaigns to promote company catalogs and generate B2B leads.",
-      "Ensured accurate communication of product information and follow-up on sales opportunities."
+      "Managed B2B client portfolio and prospected new markets through outbound campaigns.",
+      "Led the creation of Standardized Operating Procedures (POE) to optimize company processes."
     ],
-    skills: ["Sales", "Customer Relationship Management", "Communication", "Negotiation", "B2B Marketing"],
+    skills: ["B2B Sales", "CRM (Odoo)", "Process Standardization", "Digital Marketing", "Client Management"],
     highlight: false,
-    expandable: false
+    expandable: true,
+    expandedContent: {
+      commercialStrategy: {
+        title: "Commercial Strategy",
+        items: [
+          {
+            title: "Dual Market Management",
+            icon: "phone",
+            description: "Maintained active client portfolio while prospecting new B2B markets through targeted outreach campaigns."
+          },
+          {
+            title: "Performance KPIs",
+            icon: "chart",
+            description: "Achieved daily targets of 10 'effective calls' (conversion to catalog delivery) with metrics tracking for sales team derivation."
+          }
+        ]
+      },
+      digitalTransformation: {
+        title: "Digital Transformation & Tools",
+        items: [
+          {
+            title: "CRM Implementation",
+            icon: "network",
+            description: "Daily use of Odoo CRM for lead traceability and comprehensive client management."
+          },
+          {
+            title: "Digital Presence Management",
+            icon: "phone",
+            description: "Managed social media presence (Meta platforms) and direct prospect communication channels."
+          }
+        ]
+      },
+      managementHighlight: {
+        title: "Management Milestone",
+        projectName: "POE Project (Standardized Operating Procedures)",
+        description: "Led the creation and documentation of step-by-step guides for all operational tasks within the SME.",
+        impact: "Eliminated task ambiguities, corrected operational errors, and accelerated onboarding process for new team members."
+      },
+      softSkills: ["Technical Persuasion", "Active Listening", "Organizational Adaptability"],
+      supervisor: {
+        name: "Alejandro Giusti",
+        title: "Director",
+        linkedIn: "https://www.linkedin.com/in/alejandrogiusti/"
+      },
+      companyLink: "https://www.olmergiusti.com.ar"
+    }
   }
 ]
 
@@ -414,6 +482,100 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
                           </div>
                         ))}
                       </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Commercial Strategy - Olmer Giusti */}
+                {exp.expandedContent.commercialStrategy && (
+                  <div className="bg-muted/50 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-5 h-5 text-primary" />
+                      <h4 className="font-semibold text-foreground">{exp.expandedContent.commercialStrategy.title}</h4>
+                    </div>
+                    <div className="space-y-3">
+                      {exp.expandedContent.commercialStrategy.items.map((item, i) => (
+                        <div key={i} className="flex gap-3 p-3 bg-card border border-border/50 rounded-lg">
+                          <div className="shrink-0 mt-0.5">
+                            {item.icon === "phone" ? (
+                              <Phone className="w-4 h-4 text-primary" />
+                            ) : (
+                              <BarChart3 className="w-4 h-4 text-primary" />
+                            )}
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-foreground mb-1">{item.title}</p>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Digital Transformation - Olmer Giusti */}
+                {exp.expandedContent.digitalTransformation && (
+                  <div className="bg-muted/50 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Network className="w-5 h-5 text-primary" />
+                      <h4 className="font-semibold text-foreground">{exp.expandedContent.digitalTransformation.title}</h4>
+                    </div>
+                    <div className="space-y-3">
+                      {exp.expandedContent.digitalTransformation.items.map((item, i) => (
+                        <div key={i} className="flex gap-3 p-3 bg-card border border-border/50 rounded-lg">
+                          <div className="shrink-0 mt-0.5">
+                            {item.icon === "network" ? (
+                              <Network className="w-4 h-4 text-primary" />
+                            ) : (
+                              <Phone className="w-4 h-4 text-primary" />
+                            )}
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-foreground mb-1">{item.title}</p>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Management Highlight - POE Project */}
+                {exp.expandedContent.managementHighlight && (
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <FileCheck className="w-5 h-5 text-primary" />
+                      <h4 className="font-semibold text-foreground">{exp.expandedContent.managementHighlight.title}</h4>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="p-3 bg-card border border-primary/30 rounded-lg">
+                        <p className="text-sm font-semibold text-primary mb-1">{exp.expandedContent.managementHighlight.projectName}</p>
+                        <p className="text-sm text-muted-foreground">{exp.expandedContent.managementHighlight.description}</p>
+                      </div>
+                      <div className="flex items-start gap-3 p-3 bg-card border border-border rounded-lg">
+                        <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-foreground">Impact</p>
+                          <p className="text-sm text-muted-foreground">{exp.expandedContent.managementHighlight.impact}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Soft Skills - Olmer Giusti */}
+                {exp.expandedContent.softSkills && (
+                  <div className="bg-muted/50 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Heart className="w-5 h-5 text-primary" />
+                      <h4 className="font-semibold text-foreground">Soft Skills Developed</h4>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.expandedContent.softSkills.map((skill, i) => (
+                        <span key={i} className="px-3 py-1.5 bg-primary/10 rounded-full text-sm font-medium text-primary">
+                          {skill}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 )}
