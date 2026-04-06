@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Briefcase, ChevronDown, ExternalLink, Linkedin, AlertTriangle, CheckCircle, Globe, Users, TrendingUp, Cog, Car, FileSpreadsheet, Wrench, ClipboardList, Phone, BarChart3, Network, FileCheck, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -18,6 +19,7 @@ interface RenaultPhase {
 interface ExperienceData {
   company: string
   role: string
+  logo?: string // Campo para el logo
   location: string
   period: string
   description: string[]
@@ -83,6 +85,7 @@ const experiences: ExperienceData[] = [
   {
     company: "Grupo Arcor",
     role: "International Logistics Intern",
+    logo: "/logos/arcor.png",
     location: "Argentina",
     period: "Mar 2024 – Aug 2025",
     description: [
@@ -123,6 +126,7 @@ const experiences: ExperienceData[] = [
   {
     company: "Groupe Renault",
     role: "Performance Engineering Intern",
+    logo: "/logos/renault.png",
     location: "Argentina (RTA - Renault Technologie America)",
     period: "Sep 2022 – Mar 2024",
     description: [
@@ -186,6 +190,7 @@ const experiences: ExperienceData[] = [
   {
     company: "Olmer Giusti SRL",
     role: "Sales Executive",
+    logo: "/logos/olmer.png",
     location: "Argentina",
     period: "Feb 2022 – Sep 2022",
     description: [
@@ -289,12 +294,21 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
       >
         <div className="p-5 md:p-6">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-            <div className="flex items-start gap-3">
-              {/* Company Logo Placeholder */}
-              <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center shrink-0">
-                <span className="text-lg font-bold text-primary">
-                  {exp.company.charAt(0)}
-                </span>
+            <div className="flex items-start gap-4">
+              {/* --- Company Logo Container --- */}
+              <div className="relative w-14 h-14 shrink-0 overflow-hidden rounded-lg border border-border bg-white p-2">
+                {exp.logo ? (
+                  <Image 
+                    src={exp.logo} 
+                    alt={exp.company} 
+                    fill 
+                    className="object-contain"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-muted">
+                    <span className="text-lg font-bold text-primary">{exp.company.charAt(0)}</span>
+                  </div>
+                )}
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-foreground">{exp.role}</h3>
