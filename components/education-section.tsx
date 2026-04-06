@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { 
   GraduationCap, 
   ChevronDown, 
@@ -35,6 +36,7 @@ interface ProjectHighlight {
 interface EducationData {
   institution: string
   degree: string
+  logo: string // Campo para el logo
   location: string
   period: string
   details: string
@@ -52,6 +54,7 @@ const education: EducationData[] = [
   {
     institution: "Politecnico di Torino",
     degree: "M.Sc. Engineering and Management (Double Degree)",
+    logo: "/logos/polito.png",
     location: "Turin, Italy",
     period: "Sep 2025 - Present",
     details: "English Course",
@@ -79,6 +82,7 @@ const education: EducationData[] = [
   {
     institution: "National University of Córdoba",
     degree: "Industrial Engineering",
+    logo: "/logos/unc.png",
     location: "Córdoba, Argentina",
     period: "Feb 2020 - Present",
     details: "GPA: 7.8/10",
@@ -119,8 +123,14 @@ function EducationCard({ edu }: { edu: EducationData }) {
     >
       <div className="p-6">
         <div className="flex items-start justify-between gap-4 mb-4">
-          <div className="p-3 bg-primary/10 rounded-lg">
-            <GraduationCap className="w-6 h-6 text-primary" />
+          {/* Logo de la Institución */}
+          <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded-xl border border-border bg-white p-2">
+            <Image 
+              src={edu.logo} 
+              alt={edu.institution} 
+              fill 
+              className="object-contain"
+            />
           </div>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">{edu.period}</span>
@@ -256,7 +266,7 @@ export function EducationSection() {
           <div className="p-2 bg-primary/10 rounded-lg">
             <GraduationCap className="w-5 h-5 text-primary" />
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground">Education</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground font-sans uppercase tracking-tight">Education</h2>
         </div>
 
         {/* Double Degree Banner */}
