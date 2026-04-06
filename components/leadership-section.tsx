@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { 
   Award, Users, BookOpen, ChevronDown, 
   Target, TrendingUp, Heart, Sparkles, 
@@ -72,6 +73,7 @@ export function LeadershipSection() {
       title: "Coordinator of Sponsorships",
       organization: "XXIII CAEII Córdoba 2025",
       period: "Sep 2024 - Oct 2025",
+      logo: "/logos/caeii.png",
       icon: Award,
       summary: "Led the partnership strategy for Argentina's largest Industrial Engineering student congress.",
       quote: "Entered as a student with zero experience, left as a professional negotiating with industry giants."
@@ -81,6 +83,7 @@ export function LeadershipSection() {
       title: "President",
       organization: "El Galponcito Community Center",
       period: "Dec 2022 - Aug 2025",
+      logo: "/logos/galponcito.png",
       icon: Users,
       summary: "Strategic and social management of a volunteer-led center in a vulnerable urban area.",
       quote: "Transforming reality through education: serving as a bridge between the university and the community."
@@ -88,8 +91,9 @@ export function LeadershipSection() {
     {
       id: "assistant",
       title: "Teaching Assistant - Industrial Costs",
-      organization: "National University of Córdoba",
+      organization: "FCEFyN - Universidad Nacional de Córdoba",
       period: "Feb 2025 - Jul 2025",
+      logo: "/logos/fcefyn.png",
       icon: BookOpen,
       summary: "Academic support in the Industrial Engineering department, focusing on financial efficiency and decision-making.",
       quote: "Empowering the next generation of engineers to master the financial pillars of industrial management."
@@ -117,8 +121,14 @@ export function LeadershipSection() {
               {/* --- Homogeneous Card Header --- */}
               <div className="p-6 md:p-8 flex flex-col md:flex-row justify-between items-start gap-4">
                 <div className="flex gap-4">
-                  <div className="p-3 bg-primary/10 rounded-xl h-fit">
-                    <role.icon className="w-6 h-6 text-primary" />
+                  {/* --- Institutional Logo Container --- */}
+                  <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded-xl border border-border bg-white p-2">
+                    <Image 
+                      src={role.logo} 
+                      alt={role.organization} 
+                      fill 
+                      className="object-contain"
+                    />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-foreground">{role.title}</h3>
@@ -212,7 +222,7 @@ export function LeadershipSection() {
                           <ul className="space-y-2">
                             <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Evaluation:</b> Grading Practical Works (TPs) to ensure students master core cost methodologies.</li>
                             <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Guidance:</b> Providing classroom support and resolving complex student inquiries during practical sessions.</li>
-                            <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Strategic Vision:</b> Helping students apply a financial perspective to engineering decision-making[cite: 1984].</li>
+                            <li className="text-sm text-muted-foreground flex gap-2"><span>•</span> <b>Strategic Vision:</b> Helping students apply a financial perspective to engineering decision-making.</li>
                           </ul>
                         </div>
                         <div className="grid sm:grid-cols-2 gap-4">
