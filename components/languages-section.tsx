@@ -15,7 +15,7 @@ const languages = [
     level: "IELTS 6.5 (B2)",
     proficiency: 75,
     flag: "🇬🇧",
-    certificate: "/documents/IELTScertificate.pdf" // Path to your file
+    certificate: "/documents/IELTScertificate.pdf"
   },
   {
     name: "Italian",
@@ -27,7 +27,8 @@ const languages = [
     name: "French",
     level: "DELF A2",
     proficiency: 35,
-    flag: "🇫🇷"
+    flag: "🇫🇷",
+    certificate: "/documents/french_certificate.pdf" // Ruta añadida
   }
 ]
 
@@ -68,7 +69,7 @@ export function LanguagesSection() {
                 </div>
               </div>
 
-              {/* Certificate Button (Only for English) */}
+              {/* Certificate Button (English & French) */}
               {lang.certificate && (
                 <Button 
                   variant="outline" 
