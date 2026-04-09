@@ -241,7 +241,7 @@ const experiences: ExperienceData[] = [
       supervisor: {
         name: "Alejandro Giusti",
         title: "Director",
-        linkedIn: "https://www.linkedin.com/in/alejandrogiusti/"
+        linkedIn: "https://www.linkedin.com/in/alejandro-olmer-giusti-bb394569/"
       },
       companyLink: "https://www.olmergiusti.com.ar"
     }
