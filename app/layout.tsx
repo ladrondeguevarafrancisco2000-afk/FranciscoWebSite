@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 
 const inter = Inter({ 
@@ -8,23 +9,6 @@ const inter = Inter({
   variable: "--font-inter"
 });
 
-import { GoogleAnalytics } from '@next/third-parties/google'
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body>
-        {children}
-      </body>
-      {/* Pegamos el ID que sacamos de tu imagen */}
-      <GoogleAnalytics gaId="G-1272FEJ82M" /> 
-    </html>
-  )
-}
 export const metadata: Metadata = {
   title: 'Francisco Ladron de Guevara | Industrial & Management Engineer',
   description: 'Industrial and Management Engineering student pursuing a double degree between the National University of Córdoba and Politecnico di Torino. Oriented toward management, strategy, and leadership.',
@@ -57,7 +41,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
+        {/* Analytics de Vercel para ver visitas rápidas */}
         <Analytics />
+        {/* Google Analytics con tu ID de medición */}
+        <GoogleAnalytics gaId="G-1272FEJ82M" /> 
       </body>
     </html>
   )
