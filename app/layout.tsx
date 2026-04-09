@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 
 const inter = Inter({ 
@@ -11,8 +10,25 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'Francisco Ladron de Guevara | Industrial & Management Engineer',
-  description: 'Industrial and Management Engineering student pursuing a double degree between the National University of Córdoba and Politecnico di Torino.',
+  description: 'Industrial and Management Engineering student pursuing a double degree between the National University of Córdoba and Politecnico di Torino. Oriented toward management, strategy, and leadership.',
   generator: 'v0.app',
+  icons: {
+    icon: [
+      {
+        url: '/icon-light-32x32.png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/icon-dark-32x32.png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/icon.svg',
+        type: 'image/svg+xml',
+      },
+    ],
+    apple: '/apple-icon.png',
+  },
 }
 
 export default function RootLayout({
@@ -22,10 +38,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Google Analytics Manual - ID: G-1272FEJ82M */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1272FEJ82M"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-1272FEJ82M');
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
+        {/* Analytics de Vercel */}
         <Analytics />
-        <GoogleAnalytics gaId="G-1272FEJ82M" /> 
       </body>
     </html>
   )
