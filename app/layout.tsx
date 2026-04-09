@@ -8,6 +8,23 @@ const inter = Inter({
   variable: "--font-inter"
 });
 
+import { GoogleAnalytics } from '@next/third-parties/google'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+      </body>
+      {/* Pegamos el ID que sacamos de tu imagen */}
+      <GoogleAnalytics gaId="G-1272FEJ82M" /> 
+    </html>
+  )
+}
 export const metadata: Metadata = {
   title: 'Francisco Ladron de Guevara | Industrial & Management Engineer',
   description: 'Industrial and Management Engineering student pursuing a double degree between the National University of Córdoba and Politecnico di Torino. Oriented toward management, strategy, and leadership.',
