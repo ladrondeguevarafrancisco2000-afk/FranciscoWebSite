@@ -9,6 +9,8 @@ import {
   MapPin, AlertTriangle, GraduationCap, Calculator
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { AnimatedSection } from "@/components/animated-section"
+import { SectionHeading } from "@/components/section-heading"
 
 const caeiiChapters = [
   {
@@ -101,21 +103,22 @@ export function LeadershipSection() {
   ]
 
   return (
-    <section className="py-16 bg-background">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="flex items-center gap-3 mb-10">
-          <div className="p-2 bg-primary/10 rounded-lg">
-            <Award className="w-5 h-5 text-primary" />
-          </div>
-          <h2 className="text-3xl font-bold font-sans uppercase tracking-tight">Leadership & Projects</h2>
-        </div>
+    <section id="leadership" className="scroll-mt-20 py-16 md:py-20 bg-background">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <SectionHeading
+            icon={<Award className="w-5 h-5 text-primary" />}
+            title="Leadership & Projects"
+            subtitle="Where I led rather than assisted: a €30,000 sponsorship budget, a community centre, and a university course. Open each deep dive for the full case."
+          />
+        </AnimatedSection>
 
         <div className="grid gap-6 mb-12">
-          {roles.map((role) => (
-            <div 
-              key={role.id} 
+          {roles.map((role, index) => (
+            <AnimatedSection key={role.id} delay={index * 0.08}>
+            <div
               className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-                expandedCard === role.id ? "border-primary/40 bg-card shadow-lg" : "border-border bg-card/50 hover:border-primary/20"
+                expandedCard === role.id ? "border-primary/40 bg-card shadow-lg" : "border-border bg-card/50 hover:border-primary/20 hover:shadow-md"
               }`}
             >
               {/* --- Homogeneous Card Header --- */}
@@ -246,6 +249,7 @@ export function LeadershipSection() {
                 </div>
               )}
             </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>

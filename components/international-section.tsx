@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Plane, ChevronDown, FileText, Globe, Footprints, Bike, Trophy } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { AnimatedSection } from "@/components/animated-section"
+import { SectionHeading } from "@/components/section-heading"
 
 export function InternationalSection() {
   const [isFranceExpanded, setIsFranceExpanded] = useState(false)
@@ -22,20 +24,21 @@ export function InternationalSection() {
   }
 
   return (
-    <section className="py-16 bg-muted/20">
-      <div className="max-w-5xl mx-auto px-4">
-        {/* Section Header */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="p-2 bg-primary/10 rounded-lg">
-            <Plane className="w-5 h-5 text-primary" />
-          </div>
-          <h2 className="text-3xl font-bold font-sans uppercase tracking-tight">International Experience</h2>
-        </div>
+    <section id="international" className="scroll-mt-20 py-16 md:py-20 bg-muted/20">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <SectionHeading
+            icon={<Plane className="w-5 h-5 text-primary" />}
+            title="International Experience"
+            subtitle="Exchanges, a Work & Travel season in France, and the habit of landing somewhere new and making it work."
+          />
+        </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-6 items-start">
-          
+
           {/* --- CARD 1: EXCHANGES --- */}
-          <div className="p-6 bg-card rounded-2xl border border-border hover:border-primary/20 transition-all">
+          <AnimatedSection>
+          <div className="p-6 bg-card rounded-2xl border border-border hover:border-primary/20 hover:shadow-md transition-all">
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-xl font-bold text-foreground">{exchanges.title}</h3>
@@ -55,9 +58,11 @@ export function InternationalSection() {
               <FileText className="w-4 h-4" /> Download Certificate (NZ)
             </Button>
           </div>
+          </AnimatedSection>
 
           {/* --- CARD 2: FRANCE (EXPANDABLE) --- */}
-          <div className={`p-6 bg-card rounded-2xl border transition-all duration-300 ${isFranceExpanded ? "border-primary/40 shadow-lg" : "border-border hover:border-primary/20"}`}>
+          <AnimatedSection delay={0.1}>
+          <div className={`p-6 bg-card rounded-2xl border transition-all duration-300 ${isFranceExpanded ? "border-primary/40 shadow-lg" : "border-border hover:border-primary/20 hover:shadow-md"}`}>
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-xl font-bold text-foreground">{workAndTravel.title}</h3>
@@ -110,6 +115,7 @@ export function InternationalSection() {
               </div>
             )}
           </div>
+          </AnimatedSection>
 
         </div>
       </div>

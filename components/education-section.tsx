@@ -19,6 +19,8 @@ import {
   FileText
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { AnimatedSection } from "@/components/animated-section"
+import { SectionHeading } from "@/components/section-heading"
 
 interface Subject {
   name: string
@@ -116,9 +118,9 @@ function EducationCard({ edu }: { edu: EducationData }) {
 
   return (
     <div 
-      className={`bg-card rounded-xl border overflow-hidden transition-all duration-300 ${
+      className={`h-full bg-card rounded-xl border overflow-hidden transition-all duration-300 ${
         edu.highlight ? "border-primary/20 shadow-sm" : "border-border"
-      } ${edu.expandable ? "cursor-pointer hover:shadow-md" : ""}`}
+      } ${edu.expandable ? "cursor-pointer hover:shadow-md hover:-translate-y-0.5" : ""}`}
       onClick={handleToggle}
     >
       <div className="p-6">
@@ -260,32 +262,37 @@ function EducationCard({ edu }: { edu: EducationData }) {
 
 export function EducationSection() {
   return (
-    <section className="py-16 md:py-20 bg-muted/30">
+    <section id="education" className="scroll-mt-20 py-16 md:py-20 bg-muted/30">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="p-2 bg-primary/10 rounded-lg">
-            <GraduationCap className="w-5 h-5 text-primary" />
+        <AnimatedSection>
+          <SectionHeading
+            icon={<GraduationCap className="w-5 h-5 text-primary" />}
+            title="Education"
+            subtitle="One double degree, two universities, two countries — pursued while working throughout my undergraduate career."
+          />
+        </AnimatedSection>
+
+        <AnimatedSection>
+          {/* Double Degree Banner */}
+          <div className="mb-6 p-4 bg-primary/5 border border-primary/20 rounded-xl">
+            <p className="text-center text-primary font-semibold text-sm md:text-base">
+              Double Degree Program between Argentina & Italy
+            </p>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground font-sans uppercase tracking-tight">Education</h2>
-        </div>
 
-        {/* Double Degree Banner */}
-        <div className="mb-6 p-4 bg-primary/5 border border-primary/20 rounded-xl">
-          <p className="text-center text-primary font-semibold text-sm md:text-base">
-            Double Degree Program between Argentina & Italy
-          </p>
-        </div>
-
-        {/* Narrative Introduction */}
-        <div className="mb-10 p-6 bg-card border border-border rounded-xl">
-          <p className="text-foreground leading-relaxed text-balance">
-            From the beginning of my studies at UNC, my focus was on internationalization. My goal was clear: to obtain the Double Degree scholarship for Politecnico di Torino, drawn by its global prestige and my Italian heritage. This challenge, which I pursued while working throughout my undergraduate career, represents my pursuit of professional growth, language mastery (Italian and English), and technical excellence in management.
-          </p>
-        </div>
+          {/* Narrative Introduction */}
+          <div className="mb-10 p-6 bg-card border border-border rounded-xl">
+            <p className="text-foreground leading-relaxed text-balance">
+              From the beginning of my studies at UNC, my focus was on internationalization. My goal was clear: to obtain the Double Degree scholarship for Politecnico di Torino, drawn by its global prestige and my Italian heritage. This challenge, which I pursued while working throughout my undergraduate career, represents my pursuit of professional growth, language mastery (Italian and English), and technical excellence in management.
+            </p>
+          </div>
+        </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-6">
           {education.map((edu, index) => (
-            <EducationCard key={index} edu={edu} />
+            <AnimatedSection key={index} delay={index * 0.1} className="h-full">
+              <EducationCard edu={edu} />
+            </AnimatedSection>
           ))}
         </div>
       </div>

@@ -1,3 +1,5 @@
+import { Navbar } from "@/components/navbar"
+import { BackToTop } from "@/components/back-to-top"
 import { HeroSection } from "@/components/hero-section"
 import { ExperienceSection } from "@/components/experience-section"
 import { EducationSection } from "@/components/education-section"
@@ -9,7 +11,8 @@ import { Footer } from "@/components/footer"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background antialiased">
+    <main id="top" className="min-h-screen bg-background antialiased">
+      <Navbar />
       <HeroSection />
       <ExperienceSection />
       <EducationSection />
@@ -18,6 +21,7 @@ export default function Home() {
       <SkillsSection />
       <LanguagesSection />
       <Footer />
+      <BackToTop />
     </main>
   )
 }
