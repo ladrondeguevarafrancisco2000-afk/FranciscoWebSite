@@ -2,11 +2,14 @@ import { Mail, Phone, MapPin, Linkedin } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background py-12">
+    <footer id="contact" className="scroll-mt-20 bg-foreground text-background py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-2">Francisco Ladron de Guevara</h2>
-          <p className="text-background/70">Industrial & Management Engineer</p>
+          <h2 className="text-2xl font-bold mb-2">Let's talk</h2>
+          <p className="text-background/70">
+            Francisco Ladron de Guevara — Industrial &amp; Management Engineer, Logistics
+          </p>
+          <p className="mt-2 text-sm text-background/50">Based in Turin · Available immediately</p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm">
@@ -26,7 +29,7 @@ export function Footer() {
           </a>
           <div className="inline-flex items-center gap-2 text-background/70">
             <MapPin className="w-4 h-4" />
-            <span>Via Madama Cristina 1, Turin, Italy</span>
+            <span>Turin, Italy</span>
           </div>
         </div>
 

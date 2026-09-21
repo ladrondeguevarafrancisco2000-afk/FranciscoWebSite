@@ -2,8 +2,10 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Briefcase, ChevronDown, ExternalLink, Linkedin, AlertTriangle, CheckCircle, Globe, Users, TrendingUp, Cog, Car, FileSpreadsheet, Wrench, ClipboardList, Phone, BarChart3, Network, FileCheck, Heart } from "lucide-react"
+import { Briefcase, ChevronDown, ExternalLink, Linkedin, AlertTriangle, CheckCircle, Globe, Users, TrendingUp, Cog, Car, FileSpreadsheet, Wrench, ClipboardList, Phone, BarChart3, Network, FileCheck, Heart, Warehouse, Boxes } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { AnimatedSection } from "@/components/animated-section"
+import { SectionHeading } from "@/components/section-heading"
 
 interface RenaultPhase {
   title: string
@@ -16,18 +18,29 @@ interface RenaultPhase {
   }[]
 }
 
+interface Responsibility {
+  title: string
+  icon: "warehouse" | "boxes" | "network" | "clipboard"
+  description: string
+}
+
 interface ExperienceData {
   company: string
   role: string
   logo?: string // Campo para el logo
   location: string
   period: string
+  current?: boolean
   description: string[]
   skills: string[]
   highlight: boolean
   expandable?: boolean
   expandedContent?: {
     context?: string
+    responsibilities?: {
+      title: string
+      items: Responsibility[]
+    }
     phases?: RenaultPhase[]
     supervisor?: {
       name: string
@@ -83,14 +96,53 @@ interface ExperienceData {
 
 const experiences: ExperienceData[] = [
   {
+    company: "Pininfarina",
+    role: "Logistics Intern",
+    logo: "/logos/pininfarina.png",
+    location: "Turin, Italy",
+    period: "Jul 2026 – Present",
+    current: true,
+    description: [
+      "Own the standardisation of warehouse processes across the operation, from goods-in to internal handling.",
+      "Use SAP daily for production line support, keeping materials flowing to the line."
+    ],
+    skills: ["Warehouse Processes", "SAP", "Process Standardization", "Production Line Support", "Internal Handling", "Logistics"],
+    highlight: true,
+    expandable: true,
+    expandedContent: {
+      context: "Pininfarina S.p.A. — Automotive Design & Engineering, Turin",
+      responsibilities: {
+        title: "Scope of the Role",
+        items: [
+          {
+            title: "Warehouse Process Standardisation",
+            icon: "warehouse",
+            description: "Ownership of how warehouse processes run across the operation, covering the full internal flow from goods-in through to internal handling."
+          },
+          {
+            title: "SAP & Production Line Support",
+            icon: "boxes",
+            description: "Daily use of SAP to support the production line, keeping materials flowing so the line is never held up by missing parts."
+          }
+        ]
+      },
+      supervisor: {
+        name: "Stefano Pagana",
+        linkedIn: "https://www.linkedin.com/in/stefano-pagana-855029a"
+      },
+      companyLink: "https://www.pininfarina.it"
+    }
+  },
+  {
     company: "Grupo Arcor",
     role: "International Logistics Intern",
     logo: "/logos/arcor.png",
     location: "Argentina",
     period: "Mar 2024 – Aug 2025",
     description: [
-      "Optimized the global supply chain and reduced port costs in Mexico.",
-      "Developed Excel dashboards to track delivery KPIs and optimize logistics performance."
+      "Owned global order traceability across plants in Argentina, Brazil, Angola, Chile and Mexico, acting as the interface between logistics, production and commercial teams.",
+      "Built TACOP, a preventive control tool that flags stalled orders before they miss the delivery window — still in daily use by the logistics team.",
+      "Cut port storage costs by 5% through KPI reporting on BL loading, tracking where extra cost was generated and why."
     ],
     skills: ["Supply Chain Management", "International Logistics", "Excel", "KPI Analysis", "Process Optimization"],
     highlight: true,
@@ -108,7 +160,7 @@ const experiences: ExperienceData[] = [
         title: "Success Case: Mexico",
         problem: "Detected delays in sending original BLs causing port storage costs through KPI dashboard analysis.",
         solution: "Implementation of monthly compliance reports and direct monitoring system.",
-        result: "Direct cost savings through elimination of unnecessary storage fees."
+        result: "Port storage costs cut by 5% through elimination of unnecessary storage fees."
       },
       innovation: {
         title: "Technical Innovation: TACOP",
@@ -130,8 +182,9 @@ const experiences: ExperienceData[] = [
     location: "Argentina (RTA - Renault Technologie America)",
     period: "Sep 2022 – Mar 2024",
     description: [
-      "Part of the Performance Engineering area within RTA, providing competitive intelligence and supporting vehicle testing operations.",
-      "Designed process optimization tools and coordinated cross-functional technical analysis."
+      "Single point of contact across engineering MÉTIERS at the Competitive Analysis Center, providing competitive intelligence to the technical teams.",
+      "Designed standardized query templates that took internal traffic from four emails per order down to one, cutting technical response times.",
+      "Ran competitive benchmarking through the A2MAC1 platform and supervised competitor vehicle tear-downs."
     ],
     skills: ["Competitive Intelligence", "Process Optimization", "SAP", "Technical Benchmarking", "Workshop Coordination", "Excel"],
     highlight: true,
@@ -152,7 +205,7 @@ const experiences: ExperienceData[] = [
             {
               title: "Process Optimization (Milestone)",
               icon: "cog",
-              description: "Facing inefficient information flows via email, I designed a Standardized Query Template in Excel. This eliminated ambiguities, drastically reduced email traffic, and accelerated technical report response times."
+              description: "Facing inefficient information flows via email, I designed a Standardized Query Template in Excel. This eliminated ambiguities, took internal traffic from four emails per order down to one, and accelerated technical report response times."
             },
             {
               title: "Technical Benchmarking",
@@ -266,6 +319,42 @@ function ItemIcon({ icon }: { icon: "clipboard" | "cog" | "car" | "spreadsheet" 
   }
 }
 
+function ResponsibilityIcon({ icon }: { icon: Responsibility["icon"] }) {
+  switch (icon) {
+    case "warehouse":
+      return <Warehouse className="w-4 h-4 text-primary" />
+    case "boxes":
+      return <Boxes className="w-4 h-4 text-primary" />
+    case "network":
+      return <Network className="w-4 h-4 text-primary" />
+    case "clipboard":
+      return <ClipboardList className="w-4 h-4 text-primary" />
+  }
+}
+
+function CompanyLogo({ company, logo }: { company: string; logo?: string }) {
+  const [failed, setFailed] = useState(false)
+  const showImage = Boolean(logo) && !failed
+
+  return (
+    <div className="relative w-14 h-14 shrink-0 overflow-hidden rounded-lg border border-border bg-white p-2">
+      {showImage ? (
+        <Image
+          src={logo as string}
+          alt={company}
+          fill
+          className="object-contain"
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center bg-muted">
+          <span className="text-lg font-bold text-primary">{company.charAt(0)}</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function ExperienceCard({ exp }: { exp: ExperienceData }) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
@@ -278,53 +367,53 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
   return (
     <div className="relative pl-12 md:pl-16">
       {/* Timeline dot */}
-      <div className={`absolute left-2.5 md:left-4.5 w-3 h-3 rounded-full border-2 ${
-        exp.highlight 
-          ? "bg-primary border-primary" 
-          : "bg-card border-muted-foreground/30"
-      }`} />
+      <div className={`absolute left-2.5 md:left-4.5 top-6 w-3 h-3 rounded-full border-2 ${
+        exp.current
+          ? "bg-primary border-primary ring-4 ring-primary/20"
+          : exp.highlight
+            ? "bg-primary border-primary"
+            : "bg-card border-muted-foreground/30"
+      }`}>
+        {exp.current && (
+          <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-60" />
+        )}
+      </div>
 
       <div 
         className={`rounded-xl border overflow-hidden transition-all duration-300 ${
-          exp.highlight 
-            ? "bg-card border-primary/20 shadow-sm" 
-            : "bg-card border-border"
-        } ${exp.expandable ? "cursor-pointer hover:scale-[1.01]" : ""}`}
+          exp.current
+            ? "bg-card border-primary/40 shadow-md"
+            : exp.highlight
+              ? "bg-card border-primary/20 shadow-sm"
+              : "bg-card border-border"
+        } ${exp.expandable ? "cursor-pointer hover:shadow-lg hover:-translate-y-0.5" : ""}`}
         onClick={handleToggle}
       >
         <div className="p-5 md:p-6">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
             <div className="flex items-start gap-4">
-              {/* --- Company Logo Container --- */}
-              <div className="relative w-14 h-14 shrink-0 overflow-hidden rounded-lg border border-border bg-white p-2">
-                {exp.logo ? (
-                  <Image 
-                    src={exp.logo} 
-                    alt={exp.company} 
-                    fill 
-                    className="object-contain"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-muted">
-                    <span className="text-lg font-bold text-primary">{exp.company.charAt(0)}</span>
-                  </div>
-                )}
-              </div>
+              <CompanyLogo company={exp.company} logo={exp.logo} />
               <div>
+                {exp.current && (
+                  <span className="inline-flex items-center gap-1.5 mb-1.5 px-2 py-0.5 bg-primary/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-primary">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                    Current Role
+                  </span>
+                )}
                 <h3 className="text-lg font-semibold text-foreground">{exp.role}</h3>
                 <p className="text-primary font-medium">{exp.company}</p>
               </div>
             </div>
-            <div className="text-sm text-muted-foreground text-right">
-              <p>{exp.period}</p>
+            <div className="text-sm text-muted-foreground sm:text-right shrink-0">
+              <p className="font-medium text-foreground">{exp.period}</p>
               <p>{exp.location}</p>
             </div>
           </div>
 
           <ul className="space-y-2 mb-4">
             {exp.description.map((item, i) => (
-              <li key={i} className="text-muted-foreground text-sm leading-relaxed flex gap-2">
-                <span className="text-primary mt-1.5 shrink-0">•</span>
+              <li key={i} className="text-muted-foreground text-sm leading-relaxed flex gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                 <span>{item}</span>
               </li>
             ))}
@@ -360,7 +449,38 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
           <div className="overflow-hidden">
             {exp.expandedContent && (
               <div className="px-5 md:px-6 pb-6 pt-2 border-t border-border/50 space-y-6">
-                
+
+                {/* Context banner (shown when there is no phases block of its own) */}
+                {exp.expandedContent.context && !exp.expandedContent.phases && (
+                  <div className="flex items-center gap-2 px-3 py-2 bg-primary/5 border border-primary/10 rounded-lg">
+                    <Briefcase className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium text-foreground">{exp.expandedContent.context}</span>
+                  </div>
+                )}
+
+                {/* Responsibilities - Pininfarina */}
+                {exp.expandedContent.responsibilities && (
+                  <div className="bg-muted/50 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Warehouse className="w-5 h-5 text-primary" />
+                      <h4 className="font-semibold text-foreground">{exp.expandedContent.responsibilities.title}</h4>
+                    </div>
+                    <div className="space-y-3">
+                      {exp.expandedContent.responsibilities.items.map((item, i) => (
+                        <div key={i} className="flex gap-3 p-3 bg-card border border-border/50 rounded-lg">
+                          <div className="shrink-0 mt-0.5">
+                            <ResponsibilityIcon icon={item.icon} />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-foreground mb-1">{item.title}</p>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Renault Phases Timeline */}
                 {exp.expandedContent.phases && (
                   <div className="space-y-4">
@@ -370,7 +490,7 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
                         <span className="text-sm font-medium text-foreground">{exp.expandedContent.context}</span>
                       </div>
                     )}
-                    
+
                     {exp.expandedContent.phases.map((phase, phaseIndex) => (
                       <div key={phaseIndex} className="bg-muted/50 rounded-lg p-4">
                         <div className="flex items-center gap-3 mb-4">
@@ -655,23 +775,26 @@ function ExperienceCard({ exp }: { exp: ExperienceData }) {
 
 export function ExperienceSection() {
   return (
-    <section className="py-16 md:py-20 bg-background">
+    <section id="experience" className="scroll-mt-20 py-16 md:py-20 bg-background">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3 mb-10">
-          <div className="p-2 bg-primary/10 rounded-lg">
-            <Briefcase className="w-5 h-5 text-primary" />
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground">Work Experience</h2>
-        </div>
+        <AnimatedSection>
+          <SectionHeading
+            icon={<Briefcase className="w-5 h-5 text-primary" />}
+            title="Work Experience"
+            subtitle="Four roles across automotive and FMCG logistics. Click any card to open the full story behind it."
+          />
+        </AnimatedSection>
 
         {/* Timeline */}
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-border" />
+          <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-border to-transparent" />
 
           <div className="space-y-8">
             {experiences.map((exp, index) => (
-              <ExperienceCard key={index} exp={exp} />
+              <AnimatedSection key={index} delay={index * 0.08}>
+                <ExperienceCard exp={exp} />
+              </AnimatedSection>
             ))}
           </div>
         </div>
