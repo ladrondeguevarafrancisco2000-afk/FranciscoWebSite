@@ -52,9 +52,10 @@ export function HeroSection() {
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-primary/20 animate-pulse opacity-20" />
               <div className="relative w-full h-full rounded-full border-4 border-background shadow-2xl overflow-hidden ring-2 ring-primary/10">
                 <Image
-                  src="/profile.jpg"
+                  src="/profile-avatar.jpg"
                   alt="Francisco Ladron de Guevara"
                   fill
+                  sizes="(max-width: 768px) 128px, 192px"
                   className="object-cover"
                   priority
                 />
