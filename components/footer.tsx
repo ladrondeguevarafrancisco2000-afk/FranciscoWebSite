@@ -29,7 +29,7 @@ export function Footer() {
           </a>
           <div className="inline-flex items-center gap-2 text-background/70">
             <MapPin className="w-4 h-4" />
-            <span>Via Madama Cristina 1, Turin, Italy</span>
+            <span>Turin, Italy</span>
           </div>
         </div>
 

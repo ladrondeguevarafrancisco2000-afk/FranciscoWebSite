@@ -149,6 +149,15 @@ function EducationCard({ edu }: { edu: EducationData }) {
         <h3 className="text-lg font-semibold text-foreground mb-1">{edu.degree}</h3>
         <p className="text-primary font-medium mb-2">{edu.institution}</p>
         <p className="text-sm text-muted-foreground">{edu.location}</p>
+
+        {edu.expandedContent?.project && (
+          <div className="mt-3 inline-flex items-center gap-2 px-2.5 py-1 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 rounded-full">
+            <Trophy className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+            <span className="text-xs font-semibold text-amber-800 dark:text-amber-300">
+              {edu.expandedContent.project.badge} — {edu.expandedContent.project.title}
+            </span>
+          </div>
+        )}
         {edu.details && (
           <p className="mt-3 text-sm font-medium text-muted-foreground bg-muted px-3 py-1.5 rounded-md inline-block">
             {edu.details}
