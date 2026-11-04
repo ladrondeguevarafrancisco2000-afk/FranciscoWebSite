@@ -16,19 +16,32 @@ import {
   Cog,
   Server,
   Sparkles,
+  Telescope,
+  Handshake,
+  Briefcase,
 } from "lucide-react"
 import { AnimatedSection } from "@/components/animated-section"
 import { SectionHeading } from "@/components/section-heading"
 
 const skillGroups = [
   {
-    title: "Logistics",
-    caption: "What I do day to day",
+    title: "Commercial & Strategy",
+    caption: "Where I am heading",
     skills: [
+      { name: "Competitive Benchmarking", icon: Telescope },
+      { name: "Cost & Margin Analysis", icon: Coins },
+      { name: "KPI Reporting", icon: BarChart3 },
+      { name: "Strategic Negotiation", icon: Handshake },
+      { name: "B2B Sales & CRM", icon: Briefcase },
+    ],
+  },
+  {
+    title: "Operations",
+    caption: "Where I come from",
+    skills: [
+      { name: "Supply Chain", icon: Route },
       { name: "Warehouse Processes", icon: Warehouse },
-      { name: "Delivery KPIs & Reporting", icon: BarChart3 },
-      { name: "Order Traceability", icon: Route },
-      { name: "Logistics Cost Control", icon: Coins },
+      { name: "Order Traceability", icon: Network },
       { name: "Process Optimisation", icon: Cog },
     ],
   },
@@ -55,21 +68,22 @@ const skillGroups = [
 ]
 
 const coreCompetencies = [
-  "Data Analysis",
-  "Process Improvement",
-  "Supply Chain Management",
-  "International Logistics",
+  "Commercial Strategy",
   "Strategic Negotiation",
+  "Cost Analysis",
+  "KPI Reporting",
+  "Competitive Intelligence",
+  "Data Analysis",
+  "Strategic Planning",
   "Fundraising & Sponsorship",
   "AI for Business Change",
-  "SOP Documentation",
   "Cross-functional Collaboration",
   "Team Leadership",
-  "KPI Reporting",
-  "Cost Analysis",
-  "Strategic Planning",
-  "Social Responsibility",
+  "Process Improvement",
+  "Supply Chain Management",
+  "SOP Documentation",
   "Continuous Improvement",
+  "Social Responsibility",
 ]
 
 export function SkillsSection() {
@@ -80,7 +94,7 @@ export function SkillsSection() {
           <SectionHeading
             icon={<Wrench className="w-5 h-5 text-primary" />}
             title="Skills"
-            subtitle="Grouped by how I actually use them: the logistics work itself, the tools behind it, and what I am still learning."
+            subtitle="Grouped by how I actually use them: the commercial and analytical work I am building toward, the operations background behind it, the tools, and what I am still learning."
           />
         </AnimatedSection>
 

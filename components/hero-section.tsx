@@ -82,19 +82,22 @@ export function HeroSection() {
             </motion.h1>
 
             <motion.p className="text-lg md:text-xl text-primary font-semibold" variants={item}>
-              Industrial &amp; Management Engineer — Logistics
+              Industrial &amp; Management Engineer — Commercial Strategy
             </motion.p>
 
             <motion.p
               className="mt-4 text-muted-foreground leading-relaxed max-w-2xl text-pretty text-lg"
               variants={item}
             >
-              Industrial engineer working in logistics, with automotive experience at{" "}
-              <b className="text-foreground">Renault</b> and <b className="text-foreground">Pininfarina</b>, and
-              multi-plant international operations at <b className="text-foreground">Arcor</b>. I am used to the
-              day-to-day of the role: SAP, delivery performance reporting, chasing the cost of urgent shipments, and
-              being the contact point between plants, customers and internal teams. I work in four languages, I am
-              based in Turin, and I am available immediately.
+              I work on the analytical side of the commercial function: competitive benchmarking, cost and
+              margin analysis, and KPI reporting that ends in a decision rather than a dashboard. At{" "}
+              <b className="text-foreground">Renault</b> I ran competitive intelligence across the engineering
+              teams; at <b className="text-foreground">Arcor</b> my KPI reporting cut port storage costs by{" "}
+              <b className="text-foreground">5%</b>. I have also carried a commercial target end to end,
+              closing <b className="text-foreground">€30,000</b> across 24 partnerships in one of Argentina's
+              hardest economic contexts. I am finishing an M.Sc. at{" "}
+              <b className="text-foreground">Politecnico di Torino</b> in strategy, corporate finance and AI
+              for business, and I work in four languages.
             </motion.p>
 
             {/* Quick facts */}
