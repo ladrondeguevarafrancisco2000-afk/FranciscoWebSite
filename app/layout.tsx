@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Francisco Ladron de Guevara | Industrial & Management Engineer',
-  description: 'Industrial and Management Engineering student pursuing a double degree between the National University of Córdoba and Politecnico di Torino. Oriented toward management, strategy, and leadership.',
+  title: 'Francisco Ladron de Guevara | Commercial Strategy & Management',
+  description: 'Industrial and Management Engineer working in commercial strategy: competitive benchmarking, cost and margin analysis, and KPI reporting. Double degree between the National University of Córdoba and Politecnico di Torino. Based in Turin, works in four languages.',
   generator: 'v0.app',
   icons: {
     icon: [

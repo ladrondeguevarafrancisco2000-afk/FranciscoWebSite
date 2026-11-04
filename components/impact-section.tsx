@@ -1,26 +1,26 @@
 "use client"
 
-import { Banknote, Globe2, TrendingDown, Trophy } from "lucide-react"
+import { Handshake, Globe2, TrendingDown, Trophy } from "lucide-react"
 import { AnimatedSection } from "@/components/animated-section"
 
 const stats = [
   {
-    icon: Banknote,
+    icon: Handshake,
     value: "€30,000",
-    label: "Sponsorship budget raised",
-    context: "24 partnerships secured for a 1,200-student congress — CAEII 2025",
-  },
-  {
-    icon: Globe2,
-    value: "5 countries",
-    label: "Plants under traceability",
-    context: "Argentina, Brazil, Angola, Chile and Mexico — Arcor",
+    label: "Sponsorship budget closed",
+    context: "24 partnerships negotiated for a 1,200-student congress — CAEII 2025",
   },
   {
     icon: TrendingDown,
     value: "−5%",
     label: "Port storage costs",
     context: "Cut through KPI reporting on BL loading — Arcor",
+  },
+  {
+    icon: Globe2,
+    value: "5 countries",
+    label: "International operating scope",
+    context: "Argentina, Brazil, Angola, Chile and Mexico — Arcor",
   },
   {
     icon: Trophy,

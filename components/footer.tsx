@@ -7,7 +7,7 @@ export function Footer() {
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold mb-2">Let's talk</h2>
           <p className="text-background/70">
-            Francisco Ladron de Guevara — Industrial &amp; Management Engineer, Logistics
+            Francisco Ladron de Guevara — Industrial &amp; Management Engineer, Commercial Strategy
           </p>
           <p className="mt-2 text-sm text-background/50">Based in Turin · Available immediately</p>
         </div>

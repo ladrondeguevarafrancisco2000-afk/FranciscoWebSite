@@ -140,11 +140,11 @@ const experiences: ExperienceData[] = [
     location: "Argentina",
     period: "Mar 2024 – Aug 2025",
     description: [
-      "Owned global order traceability across plants in Argentina, Brazil, Angola, Chile and Mexico, acting as the interface between logistics, production and commercial teams.",
-      "Built TACOP, a preventive control tool that flags stalled orders before they miss the delivery window — still in daily use by the logistics team.",
-      "Cut port storage costs by 5% through KPI reporting on BL loading, tracking where extra cost was generated and why."
+      "Cut port storage costs by 5% through KPI reporting on BL loading, tracking where extra cost was generated and why.",
+      "Acted as the interface between the commercial, production and logistics teams, owning global order traceability across plants in Argentina, Brazil, Angola, Chile and Mexico.",
+      "Built TACOP, a preventive control tool that flags stalled orders before they miss the delivery window — still in daily use by the team."
     ],
-    skills: ["Supply Chain Management", "International Logistics", "Excel", "KPI Analysis", "Process Optimization"],
+    skills: ["Cost Analysis", "KPI Reporting", "Supply Chain Management", "International Logistics", "Excel", "Process Optimization"],
     highlight: true,
     expandable: true,
     expandedContent: {
@@ -247,11 +247,12 @@ const experiences: ExperienceData[] = [
     location: "Argentina",
     period: "Feb 2022 – Sep 2022",
     description: [
-      "Managed B2B client portfolio and prospected new markets through outbound campaigns.",
-      "Led the creation of Standardized Operating Procedures (POE) to optimize company processes."
+      "Owned a B2B client portfolio and opened new markets through outbound prospecting, hitting a daily target of 10 effective calls converted to catalogue delivery.",
+      "Ran the commercial pipeline in Odoo CRM, tracking lead traceability from first contact through to handover to the sales team.",
+      "Led the creation of Standardized Operating Procedures (POE) to cut process errors and speed up onboarding."
     ],
-    skills: ["B2B Sales", "CRM (Odoo)", "Process Standardization", "Digital Marketing", "Client Management"],
-    highlight: false,
+    skills: ["B2B Sales", "CRM (Odoo)", "Pipeline Management", "Client Management", "Process Standardization", "Digital Marketing"],
+    highlight: true,
     expandable: true,
     expandedContent: {
       commercialStrategy: {
@@ -781,7 +782,7 @@ export function ExperienceSection() {
           <SectionHeading
             icon={<Briefcase className="w-5 h-5 text-primary" />}
             title="Work Experience"
-            subtitle="Four roles across automotive and FMCG logistics. Click any card to open the full story behind it."
+            subtitle="Four roles across automotive and FMCG, from competitive intelligence and B2B sales to international operations. Click any card to open the full story behind it."
           />
         </AnimatedSection>
 
